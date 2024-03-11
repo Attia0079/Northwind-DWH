@@ -146,3 +146,165 @@ CASE
 END AS cust_segment 
 FROM RFM_score;
 -----------------------------------------------------------
+ 
+ -- top city and country customers by sales
+ Explain analyze select c.cust_country , c.cust_city , sum(s.total_price)  as total_sales , 
+  dense_rank() over (order by sum(total_price) desc ) as ranking 
+ from customers_dim as c 
+ join sales_fact as s 
+ using (cust_sk)
+ group by  c.cust_country , c.cust_city 
+ order by total_sales desc;
+ 
+ ----------------------------------------------------
+ 
+ --top shipper 
+explain analyze select distinct shipper_company_name , count( order_id) over (partition by shipper_company_name )
+from sales_fact
+ 
+ 
+ ---------------------------------------------
+ --top supplier 
+explain analyze select supplier_name , count (*) as products_count , 
+ dense_rank() over (order by (count (supplier_name)) desc ) as ranking 
+ from products_dim 
+ group by supplier_name 
+
+----------------------------------------------------
+
+-- countries of top 50 percentage 
+explain analyze with countries_sales as ( select cust_country as customer_country, sum(total_price) as sales 
+from sales_fact 
+join customers_dim 
+using(cust_sk)
+group by cust_country
+ ) , 
+counries_percentages as (
+select customer_country , sales , 
+round ((sales / (select sum(total_price) as total_sales from sales_fact))::numeric , 2) as percentage 
+from countries_sales ) , 
+
+total_percentages as (
+select customer_country , sales , percentage , 
+sum(percentage) over (order by sales desc ) as cumulative_sum
+from counries_percentages
+order by sales desc )
+select * from total_percentages 
+where cumulative_sum <= 0.50
+
+
+----------------------------------------------------
+
+
+
+-- customers of top 50 percentage 
+ explain analyze with customers_sales as ( select contact_name as customer_name, sum(total_price) as sales 
+from sales_fact 
+join customers_dim 
+using(cust_sk)
+group by contact_name
+ ) , 
+customers_percentages as (
+select customer_name , sales , 
+round ((sales / (select sum(total_price) as total_sales from sales_fact))::numeric , 2) as percentage 
+from customers_sales ) ,
+total_percentages as (
+select customer_name , sales , percentage , 
+sum(percentage) over (order by sales desc ) as cumulative_sum
+from customers_percentages
+order by sales desc )
+select * from total_percentages 
+where cumulative_sum <= 0.50
+
+----------------------------------------------------
+
+
+
+-- employees of top 50 percentage 
+explain analyze with employees_sales as ( select emp_name as employee_name, sum(total_price) as sales 
+from sales_fact 
+join employees_dim 
+using(emp_sk)
+group by emp_name
+ ) , 
+employees_percentages as (
+select employee_name , sales , 
+round ((sales / (select sum(total_price) as total_sales from sales_fact))::numeric , 2) as percentage 
+from employees_sales ) ,
+total_percentages as (
+select employee_name , sales , percentage , 
+sum(percentage) over (order by sales desc ) as cumulative_sum
+from employees_percentages
+order by sales desc )
+select * from total_percentages 
+where cumulative_sum <= 0.50
+
+----------------------------------------------------
+
+
+--sales of employees 
+explain analyze select emp_name , sum(total_price) as total_sales 
+from sales_fact  as s
+join employees_dim as e
+using(emp_sk) 
+group by emp_name
+order by total_sales desc ;
+
+----------------------------------------------------
+
+
+-- count_of_employees_under_supervision_manager
+explain analyze with managers as (select emp_report_to as manager_id , count(emp_id) as num_of_employees 
+from employees_dim 
+where emp_report_to IS NOT NULL
+group by  emp_report_to )
+select manager_id , emp_name , num_of_employees
+from employees_dim as e
+join managers as m
+on m.manager_id = e.emp_id
+
+
+----------------------------------------------------
+-- trend analysis
+--months sales 
+explain analyze select  month_name||' - '||year_actual as month_of_year, sum(total_price) as total_sales 
+from sales_fact as s
+join date_dim as d 
+on d.date_dim_sk = s.order_date_sk 
+group by month_name||' - '||year_actual
+order by total_sales desc
+
+
+----------------------------------------------------
+
+
+--quarter sales 
+explain analyze select quarter_name||' - '||year_actual as quarter_of_year, sum(total_price) as total_sales 
+from sales_fact as s
+join date_dim as d 
+on d.date_dim_sk = s.order_date_sk 
+group by quarter_name||' - '||year_actual
+order by total_sales desc
+
+----------------------------------------------------
+
+
+--days sales 
+explain analyze select day_name as day_of_week, sum(total_price) as total_sales 
+from sales_fact as s
+join date_dim as d 
+on d.date_dim_sk = s.order_date_sk 
+group by day_name
+order by total_sales desc
+
+---------------------------------------------------- 
+
+
+--top 20 dates by sales 
+explain analyze select date_actual as date_of_day, sum(total_price) as total_sales 
+from sales_fact as s
+join date_dim as d 
+on d.date_dim_sk = s.order_date_sk 
+group by date_actual
+order by total_sales desc 
+limit 20 ;
