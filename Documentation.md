@@ -60,6 +60,7 @@ Our database operations are currently managed using PostgreSQL, and we intend to
   2. **ELT Process:**
   3. **Capture Data Change:**
   4. **Medallion Architecture:**
+  5. **Dashboard Layer:**
 
 ## Dimensional Modeling:
   * Identify the business process:
