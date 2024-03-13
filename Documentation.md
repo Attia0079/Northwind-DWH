@@ -12,6 +12,9 @@ Our employees are assigned to different territories and handle specific customer
 Our database operations are currently managed using PostgreSQL, and we intend to build our system on-premises within our company's data center. We require user-friendly dashboards for easy interpretation of data and insights. Our budget constraints suggest leveraging open-source technologies like PostgreSQL and other open-source tools for implementing the data warehouse.
 
  ### Source System understanding:
+  ..
+  1. **Physical Schema:**
+  2. **Tables Description and Structure:**
   
 
 ### Functional Requirements:
@@ -51,7 +54,12 @@ Our database operations are currently managed using PostgreSQL, and we intend to
 6. **Flexibility:**
    - The system architecture should be flexible to accommodate changes in business processes, such as the introduction of new product categories or supplier relationships. This flexibility ensures that the system can adapt to evolving business requirements and support ongoing growth and innovation.
 ## Technical Architecture Design:
+..
  ![Screenshot (421)](https://github.com/Attia0079/Northwind-DWH/assets/62083769/0e4ed415-5b52-4b5c-931b-8dddedce6ee0)
+  1. **Infrastructure:**
+  2. **ELT Process:**
+  3. **Capture Data Change:**
+  4. **Medallion Architecture:**
 
 ## Dimensional Modeling:
   * Identify the business process:
