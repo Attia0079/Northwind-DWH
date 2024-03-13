@@ -1,4 +1,3 @@
-# Northwind Data Warehouse Solution 
 
 ## Business Requirement Definition:
  ### Stakeholder Story:
@@ -52,6 +51,8 @@ Our database operations are currently managed using PostgreSQL, and we intend to
 6. **Flexibility:**
    - The system architecture should be flexible to accommodate changes in business processes, such as the introduction of new product categories or supplier relationships. This flexibility ensures that the system can adapt to evolving business requirements and support ongoing growth and innovation.
 ## Technical Architecture Design:
+ ![Screenshot (421)](https://github.com/Attia0079/Northwind-DWH/assets/62083769/0e4ed415-5b52-4b5c-931b-8dddedce6ee0)
+
 ## Dimensional Modeling:
   * Identify the business process:
   * Declare the grain of the business process:
