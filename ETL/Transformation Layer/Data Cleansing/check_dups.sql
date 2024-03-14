@@ -37,4 +37,4 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-SELECT * FROM sliver_layer.check_duplicates();
+SELECT * FROM sliver_layer.check_duplicates() WHERE duplicate_count > 0;

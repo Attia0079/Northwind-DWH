@@ -1,23 +1,25 @@
-DROP TABLE IF EXISTS bronze_layer.employee_territories_raw;
-DROP TABLE IF EXISTS bronze_layer.order_details_raw;
-DROP TABLE IF EXISTS bronze_layer.orders_raw;
-DROP TABLE IF EXISTS bronze_layer.customers_raw;
-DROP TABLE IF EXISTS bronze_layer.products_raw;
-DROP TABLE IF EXISTS bronze_layer.shippers_raw;
-DROP TABLE IF EXISTS bronze_layer.suppliers_raw;
-DROP TABLE IF EXISTS bronze_layer.territories_raw;
-DROP TABLE IF EXISTS bronze_layer.categories_raw;
-DROP TABLE IF EXISTS bronze_layer.region_raw;
-DROP TABLE IF EXISTS bronze_layer.employees_raw;
+CREATE SCHEMA IF NOT EXISTS anonymous_deleted_schema;
 
-CREATE TABLE bronze_layer.categories_raw (
+DROP TABLE IF EXISTS anonymous_deleted_schema.employee_territories_rubbish;
+DROP TABLE IF EXISTS anonymous_deleted_schema.order_details_rubbish;
+DROP TABLE IF EXISTS anonymous_deleted_schema.orders_rubbish;
+DROP TABLE IF EXISTS anonymous_deleted_schema.customers_rubbish;
+DROP TABLE IF EXISTS anonymous_deleted_schema.products_rubbish;
+DROP TABLE IF EXISTS anonymous_deleted_schema.shippers_rubbish;
+DROP TABLE IF EXISTS anonymous_deleted_schema.suppliers_rubbish;
+DROP TABLE IF EXISTS anonymous_deleted_schema.territories_rubbish;
+DROP TABLE IF EXISTS anonymous_deleted_schema.categories_rubbish;
+DROP TABLE IF EXISTS anonymous_deleted_schema.region_rubbish;
+DROP TABLE IF EXISTS anonymous_deleted_schema.employees_rubbish;
+
+CREATE TABLE anonymous_deleted_schema.categories_rubbish (
     category_id smallint NOT NULL PRIMARY KEY,
     category_name character varying(15) NOT NULL,
 	description text,
     picture bytea
 );
 
-CREATE TABLE bronze_layer.customers_raw (
+CREATE TABLE anonymous_deleted_schema.customers_rubbish (
     customer_id bpchar NOT NULL PRIMARY KEY,
     company_name character varying(40) NOT NULL,
     contact_name character varying(30),
@@ -31,7 +33,7 @@ CREATE TABLE bronze_layer.customers_raw (
     fax character varying(24)
 );
 
-CREATE TABLE bronze_layer.employees_raw (
+CREATE TABLE anonymous_deleted_schema.employees_rubbish (
     employee_id smallint NOT NULL PRIMARY KEY,
     last_name character varying(20) NOT NULL,
     first_name character varying(10) NOT NULL,
@@ -50,10 +52,10 @@ CREATE TABLE bronze_layer.employees_raw (
     notes text,
     reports_to smallint,
     photo_path character varying(255),
-	FOREIGN KEY (reports_to) REFERENCES bronze_layer.employees_raw
+	FOREIGN KEY (reports_to) REFERENCES anonymous_deleted_schema.employees_rubbish
 );
 
-CREATE TABLE bronze_layer.suppliers_raw (
+CREATE TABLE anonymous_deleted_schema.suppliers_rubbish (
     supplier_id smallint NOT NULL PRIMARY KEY,
     company_name character varying(40) NOT NULL,
     contact_name character varying(30),
@@ -68,7 +70,7 @@ CREATE TABLE bronze_layer.suppliers_raw (
     homepage text
 );
 
-CREATE TABLE bronze_layer.products_raw (
+CREATE TABLE anonymous_deleted_schema.products_rubbish (
     product_id smallint NOT NULL PRIMARY KEY,
     product_name character varying(40) NOT NULL,
     supplier_id smallint,
@@ -79,22 +81,22 @@ CREATE TABLE bronze_layer.products_raw (
     units_on_order smallint,
     reorder_level smallint,
     discontinued integer NOT NULL,
-	FOREIGN KEY (category_id) REFERENCES bronze_layer.categories_raw,
-	FOREIGN KEY (supplier_id) REFERENCES bronze_layer.suppliers_raw
+	FOREIGN KEY (category_id) REFERENCES anonymous_deleted_schema.categories_rubbish,
+	FOREIGN KEY (supplier_id) REFERENCES anonymous_deleted_schema.suppliers_rubbish
 );
 
-CREATE TABLE bronze_layer.region_raw (
+CREATE TABLE anonymous_deleted_schema.region_rubbish (
     region_id smallint NOT NULL PRIMARY KEY,
     region_description bpchar NOT NULL
 );
 
-CREATE TABLE bronze_layer.shippers_raw (
+CREATE TABLE anonymous_deleted_schema.shippers_rubbish (
     shipper_id smallint NOT NULL PRIMARY KEY,
     company_name character varying(40) NOT NULL,
 	phone character varying(24)
 );
 
-CREATE TABLE bronze_layer.orders_raw (
+CREATE TABLE anonymous_deleted_schema.orders_rubbish (
     order_id smallint NOT NULL PRIMARY KEY,
     customer_id bpchar,
     employee_id smallint,
@@ -109,34 +111,34 @@ CREATE TABLE bronze_layer.orders_raw (
     ship_region character varying(15),
     ship_postal_code character varying(10),
     ship_country character varying(15),
-    FOREIGN KEY (customer_id) REFERENCES bronze_layer.customers_raw,
-    FOREIGN KEY (employee_id) REFERENCES bronze_layer.employees_raw,
-    FOREIGN KEY (ship_via) REFERENCES bronze_layer.shippers_raw
+    FOREIGN KEY (customer_id) REFERENCES anonymous_deleted_schema.customers_rubbish,
+    FOREIGN KEY (employee_id) REFERENCES anonymous_deleted_schema.employees_rubbish,
+    FOREIGN KEY (ship_via) REFERENCES anonymous_deleted_schema.shippers_rubbish
 );
 
-CREATE TABLE bronze_layer.territories_raw (
+CREATE TABLE anonymous_deleted_schema.territories_rubbish (
     territory_id character varying(20) NOT NULL PRIMARY KEY,
     territory_description bpchar NOT NULL,
 	region_id smallint NOT NULL,
-	FOREIGN KEY (region_id) REFERENCES bronze_layer.region_raw
+	FOREIGN KEY (region_id) REFERENCES anonymous_deleted_schema.region_rubbish
 );
 
 
-CREATE TABLE bronze_layer.employee_territories_raw (
+CREATE TABLE anonymous_deleted_schema.employee_territories_rubbish (
     employee_id smallint NOT NULL,
     territory_id character varying(20) NOT NULL,
 	PRIMARY KEY (employee_id, territory_id),
- 	FOREIGN KEY (territory_id) REFERENCES bronze_layer.territories_raw,
-    FOREIGN KEY (employee_id) REFERENCES bronze_layer.employees_raw
+ 	FOREIGN KEY (territory_id) REFERENCES anonymous_deleted_schema.territories_rubbish,
+    FOREIGN KEY (employee_id) REFERENCES anonymous_deleted_schema.employees_rubbish
 );
 
-CREATE TABLE bronze_layer.order_details_raw (
+CREATE TABLE anonymous_deleted_schema.order_details_rubbish (
     order_id smallint NOT NULL,
     product_id smallint NOT NULL,
     unit_price real NOT NULL,
     quantity smallint NOT NULL,
     discount real NOT NULL,
     PRIMARY KEY (order_id, product_id),
-    FOREIGN KEY (product_id) REFERENCES bronze_layer.products_raw,
-    FOREIGN KEY (order_id) REFERENCES bronze_layer.orders_raw
+    FOREIGN KEY (product_id) REFERENCES anonymous_deleted_schema.products_rubbish,
+    FOREIGN KEY (order_id) REFERENCES anonymous_deleted_schema.orders_rubbish
 );

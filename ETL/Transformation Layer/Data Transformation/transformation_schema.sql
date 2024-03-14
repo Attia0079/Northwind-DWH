@@ -1,6 +1,10 @@
 --category table transformation
+INSERT INTO sliver_layer.categories_transformed
 SELECT category_id, TRIM(LOWER(category_name))
-FROM bronze_layer.categories_raw;
+FROM bronze_layer.categories_raw
+WHERE category_id NOT IN (SELECT category_id 
+										FROM sliver_layer.categories_transformed);
+
 
 --customer table transformation
 SELECT customer_id, TRIM(LOWER(company_name)), TRIM(LOWER(contact_name)), 

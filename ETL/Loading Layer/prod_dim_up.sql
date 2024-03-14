@@ -51,7 +51,14 @@ JOIN bronze_layer.orders_raw o
 ON o.order_id = od.order_id
 ORDER BY od.product_id, o.order_date
 )
-SELECT product_id, unit_price, order_date AS start_date,
-MAX(order_date) OVER(PARTITION BY product_id, unit_price) AS end_date
-FROM price_change
-ORDER BY product_id, start_date;
+SELECT DISTINCT pc.product_id, p.product_name, c.category_name, s.company_name, pc.unit_price, 
+MIN(order_date) OVER(PARTITION BY pc.product_id, pc.unit_price) AS start_date,
+MAX(order_date) OVER(PARTITION BY pc.product_id, pc.unit_price) AS end_date
+FROM price_change pc
+JOIN bronze_layer.products_raw p
+ON p.product_id = pc.product_Id
+JOIN bronze_layer.categories_raw c
+ON p.category_id = c.category_id
+JOIN bronze_layer.suppliers_raw s
+ON p.supplier_id = s.supplier_id
+ORDER BY pc.product_id, start_date;

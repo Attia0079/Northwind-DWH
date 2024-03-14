@@ -78,8 +78,46 @@ CREATE TABLE IF NOT EXISTS redesign_sales_datamart.products_dim(
     product_id smallint NOT NULL,
     product_name character varying(40) COLLATE pg_catalog."default" NOT NULL,
     category_id smallint NOT NULL,
-    category_name character varying(15) COLLATE pg_catalog."default" NOT NULL
-    
+    category_name character varying(15) COLLATE pg_catalog."default" NOT NULL,
+	supplier_id smallint NOT NULL,
+    supplier_name character varying(40) COLLATE pg_catalog."default" NOT NULL,
+    unit_price real NOT NULL,
+	validfrom_date DATE NOT NULL,
+	validto_date DATE NOT NULL DEFAULT '9999-12-31',
+	iscurrent BOOLEAN NOT NULL DEFAULT TRUE,
+	CONSTRAINT products_dim_pkey PRIMARY KEY (product_sk)
 )
 
+
+DROP TABLE IF EXISTS redesign_sales_datamart.sales_fact;
+
+CREATE TABLE IF NOT EXISTS redesign_sales_datamart.sales_fact(
+	order_id smallint NOT NULL,
+    product_sk integer NOT NULL,
+    order_date_sk integer NOT NULL,
+    required_date_sk integer NOT NULL,
+    shipped_date_sk integer NOT NULL,
+    emp_sk integer NOT NULL,
+    cust_sk integer NOT NULL,
+	shipper_sk integer NOT NULL,
+    unit_price real NOT NULL,
+    quantity_per_product smallint NOT NULL,
+    discount real NOT NULL,
+    freight real NOT NULL,
+	total_price real NOT NULL,
+	CONSTRAINT sales_fact_cust_sk_fkey FOREIGN KEY (cust_sk)
+    REFERENCES redesign_sales_datamart.customers_dim (cust_sk) MATCH SIMPLE,
+	CONSTRAINT sales_fact_emp_sk_fkey FOREIGN KEY (emp_sk)
+    REFERENCES redesign_sales_datamart.employees_dim (emp_sk) MATCH SIMPLE,
+	CONSTRAINT sales_fact_ship_sk_fkey FOREIGN KEY (shipper_sk)
+	REFERENCES redesign_sales_datamart.shippers_dim (shipper_sk) MATCH SIMPLE,
+	CONSTRAINT sales_fact_order_date_sk_fkey FOREIGN KEY (order_date_sk)
+    REFERENCES redesign_sales_datamart.date_dim (date_dim_sk ) MATCH SIMPLE,
+	CONSTRAINT sales_fact_product_sk_fkey FOREIGN KEY (product_sk)
+    REFERENCES redesign_sales_datamart.products_dim (product_sk) MATCH SIMPLE,
+	CONSTRAINT sales_fact_required_date_sk_fkey FOREIGN KEY (required_date_sk)
+    REFERENCES redesign_sales_datamart.date_dim (date_dim_sk ) MATCH SIMPLE,
+	CONSTRAINT sales_fact_shipped_date_sk_fkey FOREIGN KEY (shipped_date_sk)
+    REFERENCES redesign_sales_datamart.date_dim (date_dim_sk ) MATCH SIMPLE
+);
 
