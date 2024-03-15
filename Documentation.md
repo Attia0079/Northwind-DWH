@@ -69,7 +69,7 @@ Our database operations are currently managed using PostgreSQL, and we intend to
   * Identify the facts:
   ### Physical Design:
   ### ETL Design and Development:
-  ### BI Application Design:
+## BI Application Design:
 
 #### Question 1  
   - Showing the Total_sales per customer
