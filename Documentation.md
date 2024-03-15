@@ -73,7 +73,7 @@ Our database operations are currently managed using PostgreSQL, and we intend to
 
 - Question 1  
   Showing the Total_sales per customer  
-  ![Image for Total_sales per customer]AnalysisForDWH&Visualization/question.001/total_sales_per_customer.png
+  ![Image for Total_sales per customer](AnalysisForDWH&Visualization/question.001/total_sales_per_customer.png)
 
 ---
 
