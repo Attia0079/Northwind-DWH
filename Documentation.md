@@ -74,118 +74,129 @@ Our database operations are currently managed using PostgreSQL, and we intend to
 - Question 1  
   Showing the Total_sales per customer  
   ![Image for Total_sales per customer](AnalysisForDWH&Visualization/question.001/total_sales_per_customer.png)
-
+  ![Image for Total_sales per customer](AnalysisForDWH&Visualization/question.001/q1.png)
 ---
 
-- Question 2  
+- Question 2 
   Showing the total_sales per product  
-  ![Image for Total_sales per product](image_link_here)
-
+  ![Image for Total_sales per product](AnalysisForDWH&Visualization/question.002/total_sales_per_product.png)
+  ![image](AnalysisForDWH&Visualization/question.002/q2.png)
 ---
 
-- Question 4  
+- Question 3 
   Showing the max_consecutive_days for the customer  
-  ![Image for max_consecutive_days](image_link_here)
+  ![Image for max_consecutive_days](AnalysisForDWH&Visualization/question.004/max_consecutive_days.png)
+  ![image](AnalysisForDWH&Visualization/question.004/q4.png)
 
 ---
 
-- Question 5  
+- Question 4 
   Showing the top city with sales  
-  ![Image for top city with sales](image_link_here)
+  ![Image for top city with sales](AnalysisForDWH&Visualization/question.005/top_city_with_sales.png)
+  ![image](AnalysisForDWH&Visualization/question.005/q5.png)
+---
 
+- Question 5 
+  Showing the top country with sales  
+  ![Image for top country with sales](AnalysisForDWH&Visualization/question.006/top_country_with_sales.png)
+  ![image](AnalysisForDWH&Visualization/question.006/q6.png)
 ---
 
 - Question 6  
-  Showing the top country with sales  
-  ![Image for top country with sales](image_link_here)
+  Showing the price deviation  
+  ![Image for price deviation](AnalysisForDWH&Visualization/question.007/price_deviation.png)
 
 ---
 
 - Question 7  
-  Showing the price deviation  
-  ![Image for price deviation](image_link_here)
-
+  Showing the top categories with sales  
+  ![Image for top categories with sales](AnalysisForDWH&Visualization/question.008/top_categories.png)
+  ![image](AnalysisForDWH&Visualization/question.007/q7.png)
 ---
 
 - Question 8  
-  Showing the top categories with sales  
-  ![Image for top categories with sales](image_link_here)
+  RFM and customers segmentation  
+  ![Image for RFM and customers segmentation](AnalysisForDWH&Visualization/question.009/q9.png)
 
 ---
 
 - Question 9  
-  RFM and customers segmentation  
-  ![Image for RFM and customers segmentation](image_link_here)
-
+  Showing the top city and country customers by sales  
+  ![Image for top city and country customers](AnalysisForDWH&Visualization/question.010/top_city_and_country_customers_by_sales.png)
+  ![image](AnalysisForDWH&Visualization/question.010/q10.png)
 ---
 
 - Question 10  
-  Showing the top city and country customers by sales  
-  ![Image for top city and country customers](image_link_here)
+  Showing the top shipper  
+  ![Image for top shipper](AnalysisForDWH&Visualization/question.011/top_shipper.png)
+  ![image](AnalysisForDWH&Visualization/question.011/q11.png)
 
 ---
 
 - Question 11  
-  Showing the top shipper  
-  ![Image for top shipper](image_link_here)
+  Showing the top supplier  
+  ![Image for top supplier](AnalysisForDWH&Visualization/question.012/top_supplier.png)
+  ![image](AnalysisForDWH&Visualization/question.012/q12.png)
 
 ---
 
 - Question 12  
-  Showing the top supplier  
-  ![Image for top supplier](image_link_here)
+  Showing the countries of top 50 percentage sharing in sales  
+  ![Image for top countries by sales percentage](AnalysisForDWH&Visualization/question.013/countries_of_top_50_percentage_with_sales.png)
+  ![image](AnalysisForDWH&Visualization/question.013/q13.png)
 
 ---
 
 - Question 13  
-  Showing the countries of top 50 percentage sharing in sales  
-  ![Image for top countries by sales percentage](image_link_here)
+  Showing the customers of top 50 percentage sharing in sales  
+  ![Image for top customers by sales percentage](AnalysisForDWH&Visualization/question.014/customers_of_top_50_percentage.png)
+  ![image](AnalysisForDWH&Visualization/question.014/q14.png)
 
 ---
 
 - Question 14  
-  Showing the customers of top 50 percentage sharing in sales  
-  ![Image for top customers by sales percentage](image_link_here)
+  Showing the employees of top 50 percentage sharing in sales  
+  ![Image for top employees by sales percentage](AnalysisForDWH&Visualization/question.015/employees_of_top_50_percentage.png)
+  ![image](AnalysisForDWH&Visualization/question.015/q15.png)
 
 ---
 
 - Question 15  
-  Showing the employees of top 50 percentage sharing in sales  
-  ![Image for top employees by sales percentage](image_link_here)
+  Showing the sales of employees  
+  ![Image for sales of employees](AnalysisForDWH&Visualization/question.016/sales_of_employees.png)
+  ![image](AnalysisForDWH&Visualization/question.016/q16.png)
 
 ---
 
 - Question 16  
-  Showing the sales of employees  
-  ![Image for sales of employees](image_link_here)
+  Showing the count_of_employees_under_supervision_manager  
+  ![Image for employee count under manager](AnalysisForDWH&Visualization/question.017/q17.png)
 
 ---
 
 - Question 17  
-  Showing the count_of_employees_under_supervision_manager  
-  ![Image for employee count under manager](image_link_here)
+  Showing the trend analysis by months sales  
+  ![Image for trend analysis by month](AnalysisForDWH&Visualization/question.018/trend_analysis_months_sales.png)
+  ![image](AnalysisForDWH&Visualization/question.018/q18.png)
 
 ---
 
 - Question 18  
-  Showing the trend analysis by months sales  
-  ![Image for trend analysis by month](image_link_here)
-
----
-
-- Question 19  
   Showing the quarter sales  
-  ![Image for quarter sales](image_link_here)
+  ![Image for quarter sales](AnalysisForDWH&Visualization/question.019/quarter_sales.png)
+  ![image](AnalysisForDWH&Visualization/question.019/q19.png)
 
 ---
 
-- Question 20  
+- Question 19
   Showing the days sales  
-  ![Image for daily sales](image_link_here)
+  ![Image for daily sales](AnalysisForDWH&Visualization/question.020/days_sales.png)
+  ![image](AnalysisForDWH&Visualization/question.020/q20.png)
 
 ---
 
-- Question 21  
+- Question 20
   Showing the top 20 dates by sales  
-  ![Image for top 20 dates by sales](image_link_here)
+  ![Image for top 20 dates by sales](AnalysisForDWH&Visualization/question.021/top_20_dates_by_sales.png)
+  ![image](AnalysisForDWH&Visualization/question.021/q21.png)
 
