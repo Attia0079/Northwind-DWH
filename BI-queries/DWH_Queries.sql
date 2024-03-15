@@ -308,3 +308,63 @@ on d.date_dim_sk = s.order_date_sk
 group by date_actual
 order by total_sales desc 
 limit 20 ;
+----------------------------------------------------------------------------------------
+-- RFM and customers sementation
+CREATE VIEW customer_segmentation_view AS
+with RFM as (
+	select distinct cd.contact_name,
+		max(dd.date_actual) over(partition by cd.contact_name) as recency,
+		count(sf.order_id) over(partition by cd.contact_name) as frequency,
+		sum(sf.total_price) over(partition by cd.contact_name) as monerty
+	from sales_fact sf
+	join customers_dim cd using(cust_sk)
+	join date_dim dd on dd.date_dim_sk=sf.order_date_sk
+	order by cd.contact_name),
+rfm_score as(
+	select distinct contact_name,
+	ntile(5) over(order by recency desc) as r_score,
+	ntile(5) over(order by frequency desc) as f_score,
+	ntile(5) over(order by monerty desc) as m_score
+from RFM
+)
+
+select contact_name, r_score, f_score, m_score,
+CASE  
+    WHEN (r_score >= 5 AND f_score >= 5)  
+        OR (r_score >= 5 AND f_score = 4)  
+        OR (r_score = 4 AND f_score >= 5) THEN 'champions'  
+        
+    WHEN (r_score >= 5 AND f_score = 2)  
+        OR (r_score = 4 AND f_score = 2)  
+        OR (r_score = 3 AND f_score = 3)  
+        OR (r_score = 4 AND f_score >= 3) THEN 'potential loyalists'  
+        
+    WHEN (r_score >= 5 AND f_score = 3)  
+        OR (r_score = 4 AND f_score = 4)  
+        OR (r_score = 3 AND f_score >= 5)  
+        OR (r_score = 3 AND f_score >= 4) THEN 'loyal customers'  
+        
+    WHEN r_score >= 5 AND f_score = 1 THEN 'recent customers'  
+        
+    WHEN (r_score = 4 AND f_score = 1)  
+        OR (r_score = 3 AND f_score = 1) THEN 'promising'  
+        
+    WHEN (r_score = 3 AND f_score = 2)  
+        OR (r_score = 2 AND f_score = 3)  
+        OR (r_score = 2 AND f_score = 2) THEN 'customers needing attention'  
+        
+    WHEN (r_score = 2 AND f_score >= 5)  
+        OR (r_score = 2 AND f_score = 4)  
+        OR (r_score = 1 AND f_score = 3) THEN 'at risk'  
+        
+    WHEN (r_score = 1 AND f_score >= 5)  
+        OR (r_score = 1 AND f_score = 4) THEN 'cant lose them'  
+        
+    WHEN (r_score = 1 AND f_score = 2)  
+        OR (r_score = 2 AND f_score = 1) THEN 'hibernating'  
+        
+    WHEN r_score = 1 AND f_score <= 1 THEN 'lost'  
+        
+    ELSE 'other'  
+END AS cust_segment 
+FROM RFM_score;
