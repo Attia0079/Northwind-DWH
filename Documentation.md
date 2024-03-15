@@ -71,6 +71,27 @@ Our database operations are currently managed using PostgreSQL, and we intend to
   ### ETL Design and Development:
 ## BI Application Design:
 
+## Title: Customers Dashboard
+
+![shorouk](BI-queries/Dashboards/cust_dashboard.jpg)
+
+### Business Insights:
+- Key Performance Indicators (KPIs):
+  - Total Sales
+  - Number of Customers
+  - Number of Orders
+
+After analyzing this data and customer behavior, we discovered several insights that our client may find valuable. Here are the main ones:
+
+### Dashboard Insights:
+1. **Top Customers by Sales** (Type: Bar Chart)
+2. **Sales by Country** (Type: Map)
+3. **Sales for the Top Customer by Year and Quarter** (Type: Line Chart)
+4. **Number of Customers per Segment** (Type: Funnel)
+
+We also include a slicer to filter the dashboard according to the year and quarter.
+
+
 #### Question 1  
   - Showing the Total_sales per customer
   ![Image for Total_sales per customer](AnalysisForDWH&Visualization/question.001/total_sales_per_customer.png)
