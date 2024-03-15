@@ -72,46 +72,46 @@ Our database operations are currently managed using PostgreSQL, and we intend to
   ## BI Application Design:
 
 - Question 1  
-  Showing the Total_sales per customer  
+  Showing the Total_sales per customer
   ![Image for Total_sales per customer](AnalysisForDWH&Visualization/question.001/total_sales_per_customer.png)
   ![Image for Total_sales per customer](AnalysisForDWH&Visualization/question.001/q1.png)
 ---
 
 - Question 2 
-  Showing the total_sales per product  
+  Showing the total_sales per product
   ![Image for Total_sales per product](AnalysisForDWH&Visualization/question.002/total_sales_per_product.png)
   ![image](AnalysisForDWH&Visualization/question.002/q2.png)
 ---
 
 - Question 3 
-  Showing the max_consecutive_days for the customer  
+  Showing the max_consecutive_days for the customer
   ![Image for max_consecutive_days](AnalysisForDWH&Visualization/question.004/max_consecutive_days.png)
   ![image](AnalysisForDWH&Visualization/question.004/q4.png)
 
 ---
 
 - Question 4 
-  Showing the top city with sales  
+  Showing the top city with sales
   ![Image for top city with sales](AnalysisForDWH&Visualization/question.005/top_city_with_sales.png)
   ![image](AnalysisForDWH&Visualization/question.005/q5.png)
 ---
 
 - Question 5 
-  Showing the top country with sales  
+  Showing the top country with sales
   ![Image for top country with sales](AnalysisForDWH&Visualization/question.006/top_country_with_sales.png)
   ![image](AnalysisForDWH&Visualization/question.006/q6.png)
 ---
 
 - Question 6  
-  Showing the price deviation  
+  Showing the price deviation
   ![Image for price deviation](AnalysisForDWH&Visualization/question.007/price_deviation.png)
-
+  ![image](AnalysisForDWH&Visualization/question.007/q7.png)
 ---
 
 - Question 7  
-  Showing the top categories with sales  
+  Showing the top categories with sales
   ![Image for top categories with sales](AnalysisForDWH&Visualization/question.008/top_categories.png)
-  ![image](AnalysisForDWH&Visualization/question.007/q7.png)
+  ![image](AnalysisForDWH&Visualization/question.008/q8.png)
 ---
 
 - Question 8  
