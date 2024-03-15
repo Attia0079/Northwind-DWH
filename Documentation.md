@@ -69,15 +69,15 @@ Our database operations are currently managed using PostgreSQL, and we intend to
   * Identify the facts:
   ### Physical Design:
   ### ETL Design and Development:
-  ## BI Application Design:
+  ### BI Application Design:
 
-- Question 1  
-  Showing the Total_sales per customer
+#### Question 1  
+  - Showing the Total_sales per customer
   ![Image for Total_sales per customer](AnalysisForDWH&Visualization/question.001/total_sales_per_customer.png)
   ![Image for Total_sales per customer](AnalysisForDWH&Visualization/question.001/q1.png)
 ---
 
-- Question 2
+#### Question 2
 - Showing the total_sales per product
   ![Image for Total_sales per product](AnalysisForDWH&Visualization/question.002/total_sales_per_product.png)
   ![image](AnalysisForDWH&Visualization/question.002/q2.png)
