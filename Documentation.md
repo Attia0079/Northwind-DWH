@@ -78,7 +78,7 @@ Our database operations are currently managed using PostgreSQL, and we intend to
 ---
 
 - Question 2
-  Showing the total_sales per product
+- Showing the total_sales per product
   ![Image for Total_sales per product](AnalysisForDWH&Visualization/question.002/total_sales_per_product.png)
   ![image](AnalysisForDWH&Visualization/question.002/q2.png)
 ---
