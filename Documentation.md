@@ -115,7 +115,7 @@ Our database operations are currently managed using PostgreSQL, and we intend to
 ---
 
 #### Question 8  
-  - RFM and customers segmentation  
+  - Recency, Frequency, Monetary Value (RFM) and customers segmentation  
   ![Image for RFM and customers segmentation](AnalysisForDWH&Visualization/question.009/q9.png)
 
 ---
