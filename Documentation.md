@@ -73,7 +73,7 @@ Our database operations are currently managed using PostgreSQL, and we intend to
 
 - Question 1  
   Showing the Total_sales per customer  
-  ![Image for Total_sales per customer](Analysis for DWH - Visualization/question.001/total_sales per customer.png)
+  ![Image for Total_sales per customer][(Analysis for DWH - Visualization/question.001/total_sales per customer.png)](https://github.com/Attia0079/Northwind-DWH/blob/1f90a597d73189ad94d6a1571b5f5a360b426315/Analysis%20for%20DWH%20-%20Visualization/question.001/total_sales%20per%20customer.png)
 
 ---
 
