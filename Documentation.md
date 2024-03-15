@@ -69,4 +69,123 @@ Our database operations are currently managed using PostgreSQL, and we intend to
   * Identify the facts:
   ### Physical Design:
   ### ETL Design and Development:
-## BI Application Design:
+  ## BI Application Design:
+
+- Question 1  
+  Showing the Total_sales per customer  
+  ![Image for Total_sales per customer](Analysis for DWH - Visualization/question.001/total_sales per customer.png)
+
+---
+
+- Question 2  
+  Showing the total_sales per product  
+  ![Image for Total_sales per product](image_link_here)
+
+---
+
+- Question 4  
+  Showing the max_consecutive_days for the customer  
+  ![Image for max_consecutive_days](image_link_here)
+
+---
+
+- Question 5  
+  Showing the top city with sales  
+  ![Image for top city with sales](image_link_here)
+
+---
+
+- Question 6  
+  Showing the top country with sales  
+  ![Image for top country with sales](image_link_here)
+
+---
+
+- Question 7  
+  Showing the price deviation  
+  ![Image for price deviation](image_link_here)
+
+---
+
+- Question 8  
+  Showing the top categories with sales  
+  ![Image for top categories with sales](image_link_here)
+
+---
+
+- Question 9  
+  RFM and customers segmentation  
+  ![Image for RFM and customers segmentation](image_link_here)
+
+---
+
+- Question 10  
+  Showing the top city and country customers by sales  
+  ![Image for top city and country customers](image_link_here)
+
+---
+
+- Question 11  
+  Showing the top shipper  
+  ![Image for top shipper](image_link_here)
+
+---
+
+- Question 12  
+  Showing the top supplier  
+  ![Image for top supplier](image_link_here)
+
+---
+
+- Question 13  
+  Showing the countries of top 50 percentage sharing in sales  
+  ![Image for top countries by sales percentage](image_link_here)
+
+---
+
+- Question 14  
+  Showing the customers of top 50 percentage sharing in sales  
+  ![Image for top customers by sales percentage](image_link_here)
+
+---
+
+- Question 15  
+  Showing the employees of top 50 percentage sharing in sales  
+  ![Image for top employees by sales percentage](image_link_here)
+
+---
+
+- Question 16  
+  Showing the sales of employees  
+  ![Image for sales of employees](image_link_here)
+
+---
+
+- Question 17  
+  Showing the count_of_employees_under_supervision_manager  
+  ![Image for employee count under manager](image_link_here)
+
+---
+
+- Question 18  
+  Showing the trend analysis by months sales  
+  ![Image for trend analysis by month](image_link_here)
+
+---
+
+- Question 19  
+  Showing the quarter sales  
+  ![Image for quarter sales](image_link_here)
+
+---
+
+- Question 20  
+  Showing the days sales  
+  ![Image for daily sales](image_link_here)
+
+---
+
+- Question 21  
+  Showing the top 20 dates by sales  
+  ![Image for top 20 dates by sales](image_link_here)
+
