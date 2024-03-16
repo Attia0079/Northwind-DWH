@@ -198,7 +198,7 @@ In the future, we may explore additional enhancements, such as separating `categ
 
 ## Title: Customers Dashboard
 
-![dashboard](BI-queries/Dashboards/cust_dashboard.jpg)
+![dashboard](BI-queries/Dashboards/customers_dashboard.jpg)
 
 ### Business Insights:
 - Key Performance Indicators (KPIs):
