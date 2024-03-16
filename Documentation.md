@@ -198,7 +198,7 @@ In the future, we may explore additional enhancements, such as separating `categ
 
 ## Title: Customers Dashboard
 
-![shorouk](BI-queries/Dashboards/cust_dashboard.jpg)
+![dashboard](BI-queries/Dashboards/cust_dashboard.jpg)
 
 ### Business Insights:
 - Key Performance Indicators (KPIs):
@@ -215,6 +215,28 @@ After analyzing this data and customer behavior, we discovered several insights 
 4. **Number of Customers per Segment** (Type: Funnel)
 
 We also include a slicer to filter the dashboard according to the year and quarter.
+
+## Title: Sales
+![sales](BI-queries/Dashboards/sales_dashboard.jpg)
+
+### Business Insights:
+- Key Performance Indicators (KPIs):
+ - Total Sales
+ - Total Orders
+
+After analyzing the sales over time, we discovered several insights that our client may find valuable. Here are the main ones:
+
+## Dashboard Insights:
+
+1. Total Sales per Category (Chart Type: Bar Chart)
+
+2. Total Sales per Month (Chart Type: Line Chart)
+
+3. Total Sales per Quarter (Chart Type: Pie Chart)
+
+4. Top 10 Product Sales per Year (Chart Type: Bar Chart)
+
+We also include a slicer to filter the dashboard according to the year.
 
 
 #### Question 1  
