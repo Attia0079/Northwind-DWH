@@ -124,11 +124,27 @@ Product_name, supplier_name, category_name, unit_price.
 Role-Playing dimension which used in many cases: order_date, ship_date, and required_date.
 It represents all possible dates within a large range and its details:
 Actual_date, actual_year, actual_month, actual_quarter, day_of_week.
+5. Order dimension:
+   degenerated dimension just use the order_id in the fact table.
 
-5. Defining Data Warehouse Modeling:
+7. Defining Data Warehouse Modeling:
 We created a star schema to contain our fact table and dimensions tables.
 This is our warehouse model:
    ![DWH_ERD](BI-queries/Images/dwh_erd.png)
+
+### Data Warehouse Design Considerations
+
+### Initial Design Observation
+In the initial model of the data warehouse, we noticed that certain queries heavily involve columns such as `category name`, `supplier name`, and `shipper name`. These columns are integral to various analytical queries. Initially, we chose to incorporate them directly into the fact table to avoid creating a highly denormalized fact table with numerous dimensions.
+
+### Redesign for Enhancement
+Upon further evaluation, we identified limitations in the initial design, particularly concerning the inclusion of non-additive columns in the fact table. To address this, we proposed a redesign aimed at enhancing the overall architecture of the data warehouse.
+
+#### Redesign Approach
+The redesign involves a shift towards a more dimensional modeling approach. Instead of directly embedding non-additive columns into the fact table, we opt to create separate dimension tables for `category`, `supplier`, and `shipper`. This approach not only reduces the complexity of the fact table but also facilitates better query performance and maintainability.
+![sales_datamart](https://github.com/Attia0079/Northwind-DWH/assets/62083769/c10ce0f3-2dee-4b7f-85a4-b670aeb64691)
+
+
   ### Physical Design:
   ### ETL Design and Development:
 ## BI Application Design:
