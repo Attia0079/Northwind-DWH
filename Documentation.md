@@ -101,8 +101,23 @@ The Gold schema is the final layer in our data warehouse architecture, responsib
 
 3. **Data Quality and Integrity**: With dedicated layers for data validation and transformation, we ensure that our data is of high quality and integrity, enhancing its reliability for analytical purposes.
 
-  4. **Analytical Queries(Serving Layer):**
-  5. **Dashboard Layer:**
+  ### Analytical Queries(Serving Layer):
+   The serving layer plays a crucial role in our data architecture by facilitating the mapping of business questions into analytical queries and stored database objects. This layer acts as a bridge between business users and the data warehouse (DWH) layer, aiming to enhance query performance and reusability while ensuring alignment with stakeholder needs and requirements.
+
+### Responsibilities:
+
+1. **Mapping Business Questions**: The serving layer translates business questions and requirements into analytical queries. It ensures that the queries effectively address the business objectives and extract insights from the available data.
+
+2. **Stored Database Objects**: It manages and optimizes stored database objects such as views, materialized views, and indexes. These objects are designed to improve query performance by pre-aggregating data, storing intermediate results, and optimizing access paths.
+
+3. **Query Performance Optimization**: The serving layer focuses on designing efficient queries for high performance. It considers factors such as query complexity, data distribution, indexing strategies, and join optimizations to minimize query execution times.
+
+4. **Reusability and Maintainability**: By centralizing query logic and database objects, the serving layer promotes reusability and maintainability. It allows business users to access pre-defined queries and data structures, reducing redundancy and ensuring consistency across reports and dashboards.
+
+5. **Alignment with Stakeholder Needs**: The serving layer ensures that analytical queries and data structures align with stakeholder needs and requirements. It facilitates communication between data engineers, analysts, and business users, ensuring that the data provided meets the intended use cases and supports decision-making processes.
+
+
+  ### Dashboard Layer:
 
 ## Dimensional Modeling:
 1. Defining Business Process:
