@@ -12,6 +12,87 @@ Our employees are assigned to different territories and handle specific customer
 Our database operations are currently managed using PostgreSQL, and we intend to build our system on-premises within our company's data center. We require user-friendly dashboards for easy interpretation of data and insights. Our budget constraints suggest leveraging open-source technologies like PostgreSQL and other open-source tools for implementing the data warehouse.
 
  ### Source System understanding:
+The Northwind database serves as a sample database initially developed by Microsoft for instructional purposes across various database products over many years. It encompasses sales records for a fictional entity known as "Northwind Traders," engaged in the import and export of specialty foods globally. This database structure provides a comprehensive framework for tutorials on small-business ERP systems, covering areas such as customer management, order processing, inventory control, procurement, supplier relations, shipping logistics, employee management, and basic accounting principles.
+![image](src-database/northwind_db.jpeg)
+
+**Northwind Database Documentation**
+
+**1. Introduction**
+
+The Northwind database is a sample database created for educational and demonstration purposes by Microsoft. It simulates the operations of a fictional company called Northwind Traders, which deals with importing and exporting specialty foods from around the world. This documentation aims to provide a detailed overview of the database schema, including its tables, relationships, and key functionalities.
+
+**2. Tables**
+
+The Northwind database consists of the following tables:
+
+- `categories`: Stores information about product categories, including category ID, name, description, and picture.
+- `customer_demographics`: Contains customer demographic data, including customer type ID and description.
+- `customers`: Holds customer information such as ID, company name, contact details, and address.
+- `customer_customer_demo`: Represents a many-to-many relationship between customers and customer demographics.
+- `employees`: Stores employee data, including employee ID, personal details, contact information, and managerial relationships.
+- `suppliers`: Contains details about product suppliers, including supplier ID, company name, contact information, and homepage.
+- `products`: Stores product information such as product ID, name, supplier ID, category ID, pricing, and inventory details.
+- `region`: Defines regions with a region ID and description.
+- `shippers`: Holds data about shipping companies, including shipper ID, company name, and contact information.
+- `orders`: Stores order information, including order ID, customer ID, employee ID, shipping details, and order dates.
+- `territories`: Contains territory information with territory ID, description, and associated region ID.
+- `employee_territories`: Represents the many-to-many relationship between employees and territories.
+- `order_details`: Stores details about order items, including order ID, product ID, unit price, quantity, and discounts.
+- `us_states`: Holds information about US states, including state ID, name, abbreviation, and region.
+
+**3. Relationships**
+
+The database schema includes several relationships between tables:
+
+- Customers are associated with orders through the `customer_id` field in the `orders` table.
+- Employees are linked to orders through the `employee_id` field in the `orders` table.
+- Products are associated with suppliers and categories through foreign key constraints in the `products` table.
+- Orders are connected to shippers via the `ship_via` field in the `orders` table.
+- Territories are associated with regions through the `region_id` field in the `territories` table.
+- Employee territories are linked to employees and territories through the `employee_id` and `territory_id` fields in the `employee_territories` table.
+
+--------------
+- life cycle of Northwind Traders
+
+1. Product Procurement:
+
+Suppliers provide specialty foods to Northwind Traders. Information about these suppliers is recorded in the suppliers table.
+Upon receiving goods from suppliers, Northwind Traders updates the products table to reflect the new inventory levels (units_in_stock).
+2. Customer Acquisition:
+
+Northwind Traders acquires customers who are interested in purchasing specialty foods. Customer information, such as company name and contact details, is stored in the customers table.
+3. Order Placement:
+
+Customers place orders for various products offered by Northwind Traders. Each order is recorded in the orders table, including details such as order date, customer ID, and shipping information.
+Order details, such as the product ID, quantity, and unit price, are stored in the order_details table.
+4. Order Processing:
+
+Upon receiving an order, Northwind Traders processes it by verifying product availability and calculating the total cost.
+The inventory levels are updated in the products table to reflect the items sold (units_in_stock) and items on order (units_on_order).
+5. Shipping and Logistics:
+
+Northwind Traders selects a shipping company (shipper) from those listed in the shippers table to deliver the order to the customer.
+Shipping details, such as the shipper ID and shipping dates, are recorded in the orders table.
+6. Customer Satisfaction:
+
+The order is delivered to the customer within the specified timeframe. Timely delivery enhances customer satisfaction.
+Northwind Traders may also track customer feedback and preferences, which can be stored in additional tables linked to the customers table.
+7. Employee Management:
+
+Northwind Traders manages its workforce using the employees table. Employee details, such as their roles, contact information, and reporting structure, are stored here.
+Employees are assigned to territories, which are defined in the territories table, and their assignments are recorded in the employee_territories table.
+8. Financial Management:
+
+Revenue generated from sales is tracked in the database through the orders and order_details tables.
+Expenses, such as payments to suppliers and shipping costs, are managed externally and may be tracked through a separate accounting system.
+9. Business Analysis and Decision-Making:
+
+Northwind Traders can analyze sales data stored in the database to identify trends, popular products, and areas for improvement.
+This analysis can inform strategic decisions related to inventory management, marketing campaigns, and customer engagement strategies.
+10. Continuous Improvement:
+
+Based on the analysis of sales and customer feedback, Northwind Traders can continuously refine its product offerings, operational processes, and customer service to optimize business performance and achieve long-term success.
+ 
   ..
   1. **Physical Schema:**
   2. **Tables Description and Structure:**
