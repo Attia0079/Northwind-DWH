@@ -195,6 +195,22 @@ The Gold schema is the final layer in our data warehouse architecture, responsib
 
 
   ### Dashboard Layer:
+  The Dashboard Layer serves as the interface for business users to access visualizations, dashboards, and analytical insights derived from the data stored in the data warehouse. This layer provides intuitive visual aids to facilitate data exploration, decision-making, and performance monitoring.
+
+Power BI has been chosen as the primary dashboard tool due to its ease of use, powerful visualization capabilities, and seamless integration with various data sources, including our data warehouse. Its interactive features enable dynamic exploration of data, while its robust reporting functionalities support the creation of insightful dashboards tailored to the needs of business users.
+
+- Power BI offers a wide range of visualization options, including charts, graphs, maps, and tables, allowing users to interactively explore and analyze data from different perspectives.
+  
+- The dashboards in Power BI can be configured to update in real-time or on a scheduled basis, ensuring that business users have access to the latest information and insights.
+  
+- Business users can customize dashboards according to their specific requirements, arranging visualizations, adding filters, and incorporating annotations to highlight key insights.
+  
+- Power BI seamlessly connects to various data sources, including our data warehouse, enabling easy access to centralized data for reporting and analysis.
+  
+- Power BI facilitates collaboration among team members by allowing dashboards and reports to be shared securely within the organization. Users can also embed Power BI visualizations in other applications for broader accessibility.
+  
+-  Power BI's performance optimization features ensure smooth and efficient dashboard interactions, even when dealing with large datasets.
+
 
 ## Dimensional Modeling:
 1. Defining Business Process:
