@@ -52,7 +52,7 @@ The database schema includes several relationships between tables:
 - Employee territories are linked to employees and territories through the `employee_id` and `territory_id` fields in the `employee_territories` table.
 
 --------------
-- life cycle of Northwind Traders
+**life cycle of Northwind Traders**
 
 1. Product Procurement:
 
