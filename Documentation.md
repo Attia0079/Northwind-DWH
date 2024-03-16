@@ -93,11 +93,7 @@ This analysis can inform strategic decisions related to inventory management, ma
 
 Based on the analysis of sales and customer feedback, Northwind Traders can continuously refine its product offerings, operational processes, and customer service to optimize business performance and achieve long-term success.
  
-  ..
-  1. **Physical Schema:**
-  2. **Tables Description and Structure:**
-  
-
+ 
 ### Functional Requirements:
 
 1. **Data Integration:**
@@ -135,7 +131,6 @@ Based on the analysis of sales and customer feedback, Northwind Traders can cont
 6. **Flexibility:**
    - The system architecture should be flexible to accommodate changes in business processes, such as the introduction of new product categories or supplier relationships. This flexibility ensures that the system can adapt to evolving business requirements and support ongoing growth and innovation.
 ## Technical Architecture Design:
-..
  ![Screenshot (421)](https://github.com/Attia0079/Northwind-DWH/assets/62083769/0e4ed415-5b52-4b5c-931b-8dddedce6ee0)
   ### Infrastructure:
    #### Source System Setup
