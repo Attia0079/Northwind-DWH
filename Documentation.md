@@ -63,10 +63,61 @@ Our database operations are currently managed using PostgreSQL, and we intend to
   5. **Dashboard Layer:**
 
 ## Dimensional Modeling:
-  * Identify the business process:
-  * Declare the grain of the business process:
-  * Identify the dimensions:
-  * Identify the facts:
+1. Defining Business Process:
+We found that the most important business process here is the sales process which involves the end-to-end journey from buying the goods from the suppliers until selling them to the customers. In our data warehouse modeling, we'll try to optimize this process by modeling key entities such as customers, products, orders, employees, and suppliers. Our focus is on creating comprehensive reporting for insights into sales performance. By modeling the sales business process, we aim to enhance efficiency, provide valuable analytics, and support informed decision-making within the retail company.
+
+2. Defining KPIs:
+We tried to extract the KPIs that will help in improving the sales process.
+1. Top customers
+2. Employees performance
+3. Top selling product category
+4. Top selling city
+5. Top selling country
+6. Top shipper company
+7. Top supplier
+8. Effect of changing the prices
+9. Count of gap days without sales
+10. Count of consecutive days of purchasing for each customer
+11. Top months/years
+
+3. Defining Level of Granularity:
+The level of granularity of orders table in the source database is the order itself.
+We chose to go more deep in the level of detail of the data so we define the level of granularity is each different product in each order.
+So each row in the sales fact table will clarify the information of that:
+Customer X purchased order Y which contains Product Z from category K with a quantity of N and employee M is the one who recorded this order.
+If the same customer X purchased another products in the same order Y then he will have another rows in the fact table and each row will represents each product.
+
+4. Defining Facts and Dimensions:
+Our only fact table is sales fact.
+It is used to track each order transaction and its details.
+- It contains many measurements:
+1. Unit price (additive)
+2. Quantity per product (additive)
+3. Discount (semi-additive)
+4. Freight (semi-additive)
+5. Total price (additive)
+- Dimensions:
+1. Customer dimension:
+Slowly changing dimension because the possible change of customer’s city or country.
+It represents each customer with all needed information about him like:
+Customer_name, company_name, city, country.
+2. Employee dimension:
+Slowly changing dimension because the possible change of the employee’s title.
+It represents each employee with all needed information about him like:
+Employee_name, employee_title, emp_report_to.
+3. Product dimension:
+Slowly changing dimension because the change of the prices of products.
+It represents each product with all needed information about him like:
+Product_name, supplier_name, category_name, unit_price.
+4. Date dimension:
+Role-Playing dimension which used in many cases: order_date, ship_date, and required_date.
+It represents all possible dates within a large range and its details:
+Actual_date, actual_year, actual_month, actual_quarter, day_of_week.
+
+5. Defining Data Warehouse Modeling:
+We created a star schema to contain our fact table and dimensions tables.
+This is our warehouse model:
+   ![DWH_ERD](BI-queries/Images/dwh_erd.png)
   ### Physical Design:
   ### ETL Design and Development:
 ## BI Application Design:
