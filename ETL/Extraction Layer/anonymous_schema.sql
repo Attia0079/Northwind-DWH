@@ -51,9 +51,11 @@ CREATE TABLE anonymous_deleted_schema.employees_rubbish (
     photo bytea,
     notes text,
     reports_to smallint,
-    photo_path character varying(255),
-	FOREIGN KEY (reports_to) REFERENCES anonymous_deleted_schema.employees_rubbish
+    photo_path character varying(255)
 );
+
+ALTER TABLE anonymous_deleted_schema.employees_rubbish DROP CONSTRAINT employees_rubbish_reports_to_fkey;
+
 
 CREATE TABLE anonymous_deleted_schema.suppliers_rubbish (
     supplier_id smallint NOT NULL PRIMARY KEY,
@@ -80,9 +82,7 @@ CREATE TABLE anonymous_deleted_schema.products_rubbish (
     units_in_stock smallint,
     units_on_order smallint,
     reorder_level smallint,
-    discontinued integer NOT NULL,
-	FOREIGN KEY (category_id) REFERENCES anonymous_deleted_schema.categories_rubbish,
-	FOREIGN KEY (supplier_id) REFERENCES anonymous_deleted_schema.suppliers_rubbish
+    discontinued integer NOT NULL
 );
 
 CREATE TABLE anonymous_deleted_schema.region_rubbish (
@@ -110,26 +110,19 @@ CREATE TABLE anonymous_deleted_schema.orders_rubbish (
     ship_city character varying(15),
     ship_region character varying(15),
     ship_postal_code character varying(10),
-    ship_country character varying(15),
-    FOREIGN KEY (customer_id) REFERENCES anonymous_deleted_schema.customers_rubbish,
-    FOREIGN KEY (employee_id) REFERENCES anonymous_deleted_schema.employees_rubbish,
-    FOREIGN KEY (ship_via) REFERENCES anonymous_deleted_schema.shippers_rubbish
+    ship_country character varying(15)
 );
 
 CREATE TABLE anonymous_deleted_schema.territories_rubbish (
     territory_id character varying(20) NOT NULL PRIMARY KEY,
     territory_description bpchar NOT NULL,
-	region_id smallint NOT NULL,
-	FOREIGN KEY (region_id) REFERENCES anonymous_deleted_schema.region_rubbish
+	region_id smallint NOT NULL
 );
 
 
 CREATE TABLE anonymous_deleted_schema.employee_territories_rubbish (
     employee_id smallint NOT NULL,
-    territory_id character varying(20) NOT NULL,
-	PRIMARY KEY (employee_id, territory_id),
- 	FOREIGN KEY (territory_id) REFERENCES anonymous_deleted_schema.territories_rubbish,
-    FOREIGN KEY (employee_id) REFERENCES anonymous_deleted_schema.employees_rubbish
+    territory_id character varying(20) NOT NULL
 );
 
 CREATE TABLE anonymous_deleted_schema.order_details_rubbish (

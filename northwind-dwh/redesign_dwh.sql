@@ -84,10 +84,9 @@ CREATE TABLE IF NOT EXISTS redesign_sales_datamart.products_dim(
     unit_price real NOT NULL,
 	validfrom_date DATE NOT NULL,
 	validto_date DATE NOT NULL DEFAULT '9999-12-31',
-	iscurrent BOOLEAN NOT NULL DEFAULT TRUE,
+	iscurrent INT NOT NULL DEFAULT 1,
 	CONSTRAINT products_dim_pkey PRIMARY KEY (product_sk)
 )
-
 
 DROP TABLE IF EXISTS redesign_sales_datamart.sales_fact;
 
@@ -105,6 +104,7 @@ CREATE TABLE IF NOT EXISTS redesign_sales_datamart.sales_fact(
     discount real NOT NULL,
     freight real NOT NULL,
 	total_price real NOT NULL,
+	PRIMARY KEY (order_id, product_sk),
 	CONSTRAINT sales_fact_cust_sk_fkey FOREIGN KEY (cust_sk)
     REFERENCES redesign_sales_datamart.customers_dim (cust_sk) MATCH SIMPLE,
 	CONSTRAINT sales_fact_emp_sk_fkey FOREIGN KEY (emp_sk)
@@ -120,4 +120,7 @@ CREATE TABLE IF NOT EXISTS redesign_sales_datamart.sales_fact(
 	CONSTRAINT sales_fact_shipped_date_sk_fkey FOREIGN KEY (shipped_date_sk)
     REFERENCES redesign_sales_datamart.date_dim (date_dim_sk ) MATCH SIMPLE
 );
+
+
+
 

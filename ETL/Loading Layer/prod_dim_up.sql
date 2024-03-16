@@ -1,46 +1,3 @@
-WITH change_unit_price AS(
-SELECT od.product_id, od.unit_price, o.order_date,
-    COALESCE(LAG(od.unit_price) OVER(PARTITION BY od.product_id ORDER BY o.order_date), od.unit_price) AS prev_price,
-	ROW_NUMBER() OVER(PARTITION BY od.product_id, unit_price ORDER BY o.order_date) AS date_counter
-FROM bronze_layer.order_details_raw od 
-JOIN bronze_layer.orders_raw o
-ON o.order_id = od.order_id
-ORDER BY od.product_id, o.order_date
-), price_dev AS(
-SELECT product_id, unit_price, order_date, next_price, date_counter, ABS(unit_price - next_price) AS price_deviation
-	FROM change_unit_price
-), get_price_dev AS(
-SELECT product_id, unit_price, order_date AS price_change_startDate, date_counter, price_deviation
-FROM price_dev
-WHERE price_deviation > 0
-)
-SELECT * FROM price_dev;
-
-
-SELECT COUNT(DISTINCT ship_city) FROM bronze_layer.orders_raw;
-select * from bronze_layer.shippers_raw
---junk Dimension for the ship destination
-SELECT DISTINCT ship_via, s.company_name,ship_name, ship_city, ship_country
-FROM bronze_layer.orders_raw, bronze_layer.shippers_raw s
-WHERE s.shipper_id = ship_via;
-
-SELECT DISTINCT ship_city, ship_country 
-FROM bronze_layer.orders_raw;
-
-SELECT DISTINCT ship_name
-FROM bronze_layer.orders_raw;
-
-
-SELECT ship_city, ship_country, ship_name
-FROM (
-    SELECT DISTINCT ship_city, ship_country
-    FROM bronze_layer.orders_raw
-) AS cities
-CROSS JOIN (
-    SELECT DISTINCT ship_name
-    FROM bronze_layer.orders_raw
-) AS names;
-
 
 with price_change AS(
 SELECT od.product_id, od.unit_price, o.order_date,
@@ -50,8 +7,8 @@ FROM bronze_layer.order_details_raw od
 JOIN bronze_layer.orders_raw o
 ON o.order_id = od.order_id
 ORDER BY od.product_id, o.order_date
-)
-SELECT DISTINCT pc.product_id, p.product_name, c.category_name, s.company_name, pc.unit_price, 
+), scd_product AS(
+SELECT DISTINCT pc.product_id, p.product_name, c.category_id, c.category_name, s.supplier_id, s.company_name, pc.unit_price, 
 MIN(order_date) OVER(PARTITION BY pc.product_id, pc.unit_price) AS start_date,
 MAX(order_date) OVER(PARTITION BY pc.product_id, pc.unit_price) AS end_date
 FROM price_change pc
@@ -61,4 +18,39 @@ JOIN bronze_layer.categories_raw c
 ON p.category_id = c.category_id
 JOIN bronze_layer.suppliers_raw s
 ON p.supplier_id = s.supplier_id
-ORDER BY pc.product_id, start_date;
+ORDER BY pc.product_id, start_date)
+
+INSERT INTO redesign_sales_datamart.products_dim(
+    product_id, 
+    product_name, 
+    category_id, 
+    category_name, 
+    supplier_id, 
+    supplier_name,
+    unit_price, 
+    validfrom_date, 
+    validto_date, 
+    iscurrent
+)
+SELECT 
+    product_id, 
+    product_name, 
+    category_id, 
+    category_name, 
+    supplier_id, 
+    company_name, 
+    unit_price, 
+    start_date,
+    CASE 
+        WHEN end_date = MAX(end_date) OVER(PARTITION BY product_id) THEN '9999-12-31'
+        ELSE end_date
+    END AS validto_date,
+    CASE 
+        WHEN end_date = MAX(end_date) OVER(PARTITION BY product_id) THEN 1 
+        ELSE 0 
+    END AS iscurrent
+FROM 
+    scd_product;
+
+
+select * from redesign_sales_datamart.products_dim

@@ -65,9 +65,7 @@ CREATE TABLE sliver_layer.shippers_transformed (
 
 CREATE TABLE sliver_layer.ship_transformed(
 	ship_id INT GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ) PRIMARY KEY,
-	ship_name VARCHAR(100),
-	shipper_id smallint NOT NULL,
-	FOREIGN KEY (shipper_id) REFERENCES sliver_layer.shipperS_transformed
+	ship_name VARCHAR(100)
 );
 
 CREATE TABLE sliver_layer.orders_transformed (
@@ -91,9 +89,9 @@ CREATE TABLE sliver_layer.orders_transformed (
 CREATE TABLE sliver_layer.order_details_transformed (
     order_id smallint NOT NULL,
     product_id smallint NOT NULL,
-    unit_price smallint NOT NULL,
+    unit_price real NOT NULL,
     quantity smallint NOT NULL,
-    discount smallint NOT NULL,
+    discount real NOT NULL,
     PRIMARY KEY (order_id, product_id),
     FOREIGN KEY (product_id) REFERENCES sliver_layer.products_transformed,
     FOREIGN KEY (order_id) REFERENCES sliver_layer.orders_transformed
