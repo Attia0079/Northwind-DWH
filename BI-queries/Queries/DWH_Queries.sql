@@ -1,15 +1,15 @@
 -- Q.1: total_sales per customer
 -- Total query runtime: 72 msec.
-EXPLAIN ANALYZE select cd.contact_name, sum(sf.total_price) as total_sales,
+select cd.company_name, sum(sf.total_price) as total_sales,
 		dense_rank() over(order by sum(sf.total_price) desc) as ranking
 from customers_dim cd
 join sales_fact sf using(cust_sk)
-group by cd.contact_name
+group by cd.company_name
 order by total_sales desc;
 ----------------------------------------------------------
 -- Q.2: total_sales per product
 -- Total query runtime: 91 msec.
-EXPLAIN ANALYZE select pd.product_name, sum(sf.total_price) as total_sales,
+select pd.product_name, sum(sf.total_price) as total_sales,
 		dense_rank() over(order by sum(sf.total_price) desc) as ranking
 from products_dim pd
 join sales_fact sf using(product_sk)
@@ -18,7 +18,7 @@ order by total_sales desc;
 ----------------------------------------------------------
 -- Q.3: count_how_many_gap_of_3_days_happened
 -- Total query runtime: 71 msec.
-EXPLAIN ANALYZE select count(difference) as count_3_days_diff
+  select count(difference) as count_3_days_diff
 from
 (
 	select days, next_day, (next_day - days) as difference  
@@ -35,39 +35,39 @@ where difference = 3;
 ----------------------------------------------------------
 -- max_consecutive_days
 -- Total query runtime: 74 msec.
-EXPLAIN ANALYZE with CTE as(
-    select cd.contact_name, sf.order_date_sk, 
-		dense_rank() over (partition by cd.contact_name order by sf.order_date_sk),
-        (sf.order_date_sk - dense_rank() over (partition by contact_name order by sf.order_date_sk)) * INTERVAL '1 day' as date_check
+  with CTE as(
+    select cd.company_name, sf.order_date_sk, 
+		dense_rank() over (partition by cd.company_name order by sf.order_date_sk),
+        (sf.order_date_sk - dense_rank() over (partition by company_name order by sf.order_date_sk)) * INTERVAL '1 day' as date_check
     from sales_fact sf
 	join customers_dim cd using(cust_sk)
     )
 
-select contact_name, max(counts) as max_consecutive_days
+select company_name, max(counts) as max_consecutive_days
 from
 (
-    select contact_name, count(date_check) counts
+    select company_name, count(date_check) counts
     from cte
-    group by contact_name, date_check
+    group by company_name, date_check
 )
-group by contact_name
+group by company_name
 order by max_consecutive_days desc;
 ----------------------------------------------------------
 -- select top city with sales
-EXPLAIN ANALYZE select ship_city, sum(total_price) as total_sales, 
+  select ship_city, sum(total_price) as total_sales, 
 	dense_rank() over (order by sum(total_price) desc) as ranking 
 from sales_fact
 group by ship_city;
 ----------------------------------------------------------
 -- select top country with sales 
-EXPLAIN ANALYZE select ship_country, sum(total_price) as total_sales,
+  select ship_country, sum(total_price) as total_sales,
 		dense_rank() over (order by sum(total_price) ) as ranking 
 from sales_fact 
 group by ship_country  
 order by total_sales desc;
 ----------------------------------------------------------
 -- price deviation 
-EXPLAIN ANALYZE with products_sales as
+  with products_sales as
 	(select 
 	 	p.product_name, s.unit_price, d.date_actual as change_date, 
 		lag( s.unit_price) over(partition by p.product_name order by d.date_actual ) as previous_price
@@ -81,31 +81,31 @@ where unit_price <> previous_price
 OR previous_price IS NULL;
 ----------------------------------------------------------
 --top categories 
-EXPLAIN ANALYZE select 
+  select 
  	category_name, sum(total_price) as total_sales , 
  	dense_rank() over (order by sum(total_price) desc) as ranking 
 from sales_fact 
 group by category_name;
 -----------------------------------------------------------
 -- RFM and customers sementation
-EXPLAIN ANALYZE with RFM as (
-	select distinct cd.contact_name,
-		max(dd.date_actual) over(partition by cd.contact_name) as recency,
-		count(sf.order_id) over(partition by cd.contact_name) as frequency,
-		sum(sf.total_price) over(partition by cd.contact_name) as monerty
+  with RFM as (
+	select distinct cd.company_name,
+		max(dd.date_actual) over(partition by cd.company_name) as recency,
+		count(sf.order_id) over(partition by cd.company_name) as frequency,
+		sum(sf.total_price) over(partition by cd.company_name) as monerty
 	from sales_fact sf
 	join customers_dim cd using(cust_sk)
 	join date_dim dd on dd.date_dim_sk=sf.order_date_sk
-	order by cd.contact_name),
+	order by cd.company_name),
 rfm_score as(
-	select distinct contact_name,
+	select distinct company_name,
 	ntile(5) over(order by recency desc) as r_score,
 	ntile(5) over(order by frequency desc) as f_score,
 	ntile(5) over(order by monerty desc) as m_score
 from RFM
 )
 
-select contact_name, r_score, f_score, m_score,
+select company_name, r_score, f_score, m_score,
 CASE  
     WHEN (r_score >= 5 AND f_score >= 5)  
         OR (r_score >= 5 AND f_score = 4)  
@@ -148,7 +148,7 @@ FROM RFM_score;
 -----------------------------------------------------------
  
  -- top city and country customers by sales
- Explain analyze select c.cust_country , c.cust_city , sum(s.total_price)  as total_sales , 
+   select c.cust_country , c.cust_city , sum(s.total_price)  as total_sales , 
   dense_rank() over (order by sum(total_price) desc ) as ranking 
  from customers_dim as c 
  join sales_fact as s 
@@ -159,13 +159,13 @@ FROM RFM_score;
  ----------------------------------------------------
  
  --top shipper 
-explain analyze select distinct shipper_company_name , count( order_id) over (partition by shipper_company_name )
+  select distinct shipper_company_name , count( order_id) over (partition by shipper_company_name )
 from sales_fact
  
  
  ---------------------------------------------
  --top supplier 
-explain analyze select supplier_name , count (*) as products_count , 
+  select supplier_name , count (*) as products_count , 
  dense_rank() over (order by (count (supplier_name)) desc ) as ranking 
  from products_dim 
  group by supplier_name 
@@ -173,7 +173,7 @@ explain analyze select supplier_name , count (*) as products_count ,
 ----------------------------------------------------
 
 -- countries of top 50 percentage 
-explain analyze with countries_sales as ( select cust_country as customer_country, sum(total_price) as sales 
+  with countries_sales as ( select cust_country as customer_country, sum(total_price) as sales 
 from sales_fact 
 join customers_dim 
 using(cust_sk)
@@ -198,11 +198,11 @@ where cumulative_sum <= 0.50
 
 
 -- customers of top 50 percentage 
- explain analyze with customers_sales as ( select contact_name as customer_name, sum(total_price) as sales 
+   with customers_sales as ( select company_name as customer_name, sum(total_price) as sales 
 from sales_fact 
 join customers_dim 
 using(cust_sk)
-group by contact_name
+group by company_name
  ) , 
 customers_percentages as (
 select customer_name , sales , 
@@ -221,7 +221,7 @@ where cumulative_sum <= 0.50
 
 
 -- employees of top 50 percentage 
-explain analyze with employees_sales as ( select emp_name as employee_name, sum(total_price) as sales 
+  with employees_sales as ( select emp_name as employee_name, sum(total_price) as sales 
 from sales_fact 
 join employees_dim 
 using(emp_sk)
@@ -243,7 +243,7 @@ where cumulative_sum <= 0.50
 
 
 --sales of employees 
-explain analyze select emp_name , sum(total_price) as total_sales 
+  select emp_name , sum(total_price) as total_sales 
 from sales_fact  as s
 join employees_dim as e
 using(emp_sk) 
@@ -254,7 +254,7 @@ order by total_sales desc ;
 
 
 -- count_of_employees_under_supervision_manager
-explain analyze with managers as (select emp_report_to as manager_id , count(emp_id) as num_of_employees 
+  with managers as (select emp_report_to as manager_id , count(emp_id) as num_of_employees 
 from employees_dim 
 where emp_report_to IS NOT NULL
 group by  emp_report_to )
@@ -267,7 +267,7 @@ on m.manager_id = e.emp_id
 ----------------------------------------------------
 -- trend analysis
 --months sales 
-explain analyze select  month_name||' - '||year_actual as month_of_year, sum(total_price) as total_sales 
+  select  month_name||' - '||year_actual as month_of_year, sum(total_price) as total_sales 
 from sales_fact as s
 join date_dim as d 
 on d.date_dim_sk = s.order_date_sk 
@@ -279,7 +279,7 @@ order by total_sales desc
 
 
 --quarter sales 
-explain analyze select quarter_name||' - '||year_actual as quarter_of_year, sum(total_price) as total_sales 
+  select quarter_name||' - '||year_actual as quarter_of_year, sum(total_price) as total_sales 
 from sales_fact as s
 join date_dim as d 
 on d.date_dim_sk = s.order_date_sk 
@@ -290,7 +290,7 @@ order by total_sales desc
 
 
 --days sales 
-explain analyze select day_name as day_of_week, sum(total_price) as total_sales 
+  select day_name as day_of_week, sum(total_price) as total_sales 
 from sales_fact as s
 join date_dim as d 
 on d.date_dim_sk = s.order_date_sk 
@@ -301,7 +301,7 @@ order by total_sales desc
 
 
 --top 20 dates by sales 
-explain analyze select date_actual as date_of_day, sum(total_price) as total_sales 
+  select date_actual as date_of_day, sum(total_price) as total_sales 
 from sales_fact as s
 join date_dim as d 
 on d.date_dim_sk = s.order_date_sk 
@@ -312,23 +312,23 @@ limit 20 ;
 -- RFM and customers sementation
 CREATE VIEW customer_segmentation_view AS
 with RFM as (
-	select distinct cd.contact_name,
-		max(dd.date_actual) over(partition by cd.contact_name) as recency,
-		count(sf.order_id) over(partition by cd.contact_name) as frequency,
-		sum(sf.total_price) over(partition by cd.contact_name) as monerty
+	select distinct cd.company_name,
+		max(dd.date_actual) over(partition by cd.company_name) as recency,
+		count(sf.order_id) over(partition by cd.company_name) as frequency,
+		sum(sf.total_price) over(partition by cd.company_name) as monerty
 	from sales_fact sf
 	join customers_dim cd using(cust_sk)
 	join date_dim dd on dd.date_dim_sk=sf.order_date_sk
-	order by cd.contact_name),
+	order by cd.company_name),
 rfm_score as(
-	select distinct contact_name,
+	select distinct company_name,
 	ntile(5) over(order by recency desc) as r_score,
 	ntile(5) over(order by frequency desc) as f_score,
 	ntile(5) over(order by monerty desc) as m_score
 from RFM
 )
 
-select contact_name, r_score, f_score, m_score,
+select company_name, r_score, f_score, m_score,
 CASE  
     WHEN (r_score >= 5 AND f_score >= 5)  
         OR (r_score >= 5 AND f_score = 4)  
