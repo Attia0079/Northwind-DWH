@@ -93,7 +93,11 @@ This analysis can inform strategic decisions related to inventory management, ma
 
 Based on the analysis of sales and customer feedback, Northwind Traders can continuously refine its product offerings, operational processes, and customer service to optimize business performance and achieve long-term success.
  
- 
+  ..
+  1. **Physical Schema:**
+  2. **Tables Description and Structure:**
+  
+
 ### Functional Requirements:
 
 1. **Data Integration:**
@@ -131,6 +135,7 @@ Based on the analysis of sales and customer feedback, Northwind Traders can cont
 6. **Flexibility:**
    - The system architecture should be flexible to accommodate changes in business processes, such as the introduction of new product categories or supplier relationships. This flexibility ensures that the system can adapt to evolving business requirements and support ongoing growth and innovation.
 ## Technical Architecture Design:
+..
  ![Screenshot (421)](https://github.com/Attia0079/Northwind-DWH/assets/62083769/0e4ed415-5b52-4b5c-931b-8dddedce6ee0)
   ### Infrastructure:
    #### Source System Setup
@@ -190,22 +195,6 @@ The Gold schema is the final layer in our data warehouse architecture, responsib
 
 
   ### Dashboard Layer:
-  The Dashboard Layer serves as the interface for business users to access visualizations, dashboards, and analytical insights derived from the data stored in the data warehouse. This layer provides intuitive visual aids to facilitate data exploration, decision-making, and performance monitoring.
-
-Power BI has been chosen as the primary dashboard tool due to its ease of use, powerful visualization capabilities, and seamless integration with various data sources, including our data warehouse. Its interactive features enable dynamic exploration of data, while its robust reporting functionalities support the creation of insightful dashboards tailored to the needs of business users.
-
-- Power BI offers a wide range of visualization options, including charts, graphs, maps, and tables, allowing users to interactively explore and analyze data from different perspectives.
-  
-- The dashboards in Power BI can be configured to update in real-time or on a scheduled basis, ensuring that business users have access to the latest information and insights.
-  
-- Business users can customize dashboards according to their specific requirements, arranging visualizations, adding filters, and incorporating annotations to highlight key insights.
-  
-- Power BI seamlessly connects to various data sources, including our data warehouse, enabling easy access to centralized data for reporting and analysis.
-  
-- Power BI facilitates collaboration among team members by allowing dashboards and reports to be shared securely within the organization. Users can also embed Power BI visualizations in other applications for broader accessibility.
-  
--  Power BI's performance optimization features ensure smooth and efficient dashboard interactions, even when dealing with large datasets.
-
 
 ## Dimensional Modeling:
 1. Defining Business Process:
@@ -350,7 +339,91 @@ The `sales_by_customer_region` materialized view aggregates sales data from the 
 
 ** Materialized views play a crucial role in enhancing query performance, simplifying analysis tasks, and empowering data-driven decision-making within the data warehouse environment. By pre-computing and storing aggregated data, materialized views accelerate query processing, enable deeper insights, and support strategic business initiatives across various domains.**
 
-  ### ETL Design and Development:
+
+# ELT Process Documentation
+
+## Environment Setup:
+
+- **Cluster Instantiation:**
+  - Two PostgreSQL clusters are instantiated: one for the PUB (Publisher) and one for the SUB (Subscriber).
+
+## Configuring Clusters:
+
+- **Configuration of PUB Cluster:**
+  - Uncomment the `wal_level` line in the `postgresql.conf` file and set it to `logical`.
+    ```
+    wal_level = logical
+    ```
+  - Change the port to `5435`.
+    ```
+    port = 5435
+    ```
+
+- **Configuration of SUB Cluster:**
+  - Change the port to `5436`.
+    ```
+    port = 5436
+    ```
+
+## Starting Instances:
+
+- **Starting PostgreSQL Instances:**
+  - Start both PostgreSQL instances.
+    ```
+    /usr/lib/postgresql/16/bin/pg_ctl -D Publisher_db_name start
+    /usr/lib/postgresql/16/bin/pg_ctl -D Subscriber_db_name start
+    ```
+
+## Creating Databases and Tables:
+
+- **Creating Database and Tables in PUB Cluster:**
+  - Connect to the PUB cluster and create the desired database (`pub_db`).
+    ```
+    CREATE DATABASE pub_db;
+    \c pub_db
+    ```
+  - Add tables and insert data from SQL files.
+    ```
+    \i path_to_database_schema
+    ```
+
+- **Creating Publication:**
+  - Create a publication (`mypub`) for all tables in the PUB database.
+    ```
+    create publication mypub for all tables;
+    ```
+
+## Creating Subscription:
+
+- **Creating Subscription in SUB Cluster:**
+  - Connect to the SUB cluster.
+  - Create a subscriber database (`sub_db_name`) with tables having the same schema as the PUB database.
+  - Create a subscription (`mysub`) specifying the connection string and the publication (`mypub`).
+    ```
+    create subscription mysub connection 'dbname=northwind_database host=localhost user=attia port=5435' publication mypub;
+    ```
+
+## Steps to Create PUB/SUB:
+
+1. **Environment Setup:**
+   - Instantiate 2 PostgreSQL clusters.
+
+2. **Configuring Clusters:**
+   - Configure the PUB cluster by uncommenting `wal_level` and setting it to `logical`, and change the port to `5435`.
+   - Configure the SUB cluster by changing its port to `5436`.
+
+3. **Starting Instances:**
+   - Start both PostgreSQL instances.
+
+4. **Creating Databases and Tables:**
+   - Connect to the PUB cluster, create the desired database (`pub_db`), add tables, and insert data.
+   - Create a publication (`mypub`) for all tables in the PUB database.
+
+5. **Creating Subscription:**
+   - Connect to the SUB cluster, create a subscriber database (`sub_db_name`), create tables with the same schema as the PUB database.
+   - Create a subscription (`mysub`) specifying the connection string and the publication (`mypub`).
+
+
 ## BI Application Design:
 
 ## Title: Customers Dashboard
