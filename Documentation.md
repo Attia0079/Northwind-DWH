@@ -239,6 +239,21 @@ After analyzing the sales over time, we discovered several insights that our cli
 We also include a slicer to filter the dashboard according to the year.
 
 
+## Title: Employees
+![emp](BI-queries/Dashboards/employees_dashboard.jpg)
+
+
+### Business Insights:
+
+- Key Performance Indicators (KPIs):
+ - Total Employees
+
+## Dashboard Insights:
+
+1. Total Sales Percent per Employee (Chart Type: Bar Chart)
+
+2. Table showing Employee Name, Hire Date, and Total Sales for Each Employee (Chart Type: Table)
+
 #### Question 1  
   - Showing the Total_sales per customer
   ![Image for Total_sales per customer](AnalysisForDWH&Visualization/question.001/total_sales_per_customer.png)
