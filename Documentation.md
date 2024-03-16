@@ -286,6 +286,44 @@ In the future, we may explore additional enhancements, such as separating `categ
 
   ### Physical Design:
    ### Indexes:
+### customers_dim:
+- `cust_sk`
+- `cust_id`
+- `(cust_city, cust_country)`: B-tree index on city and country as they are often queried together.
+
+### date_dim:
+- `date_sk`
+
+### emp_dim:
+- `employee_sk`
+- `employee_id`
+- `emp_name`: Hash index on the employee name to improve performance when a specific employee name is queried.
+
+### shippers_dim:
+- `shipper_sk`
+- `shipper_id`
+- `company_name`: Hash index on the company name to improve performance when a specific company name is queried.
+
+### product_dim:
+- `product_name`: Hash index on the product name to improve performance when a specific product name is queried.
+- `shipper_name`: Hash index on the category to improve performance when a specific product category is queried.
+- `category_name`: Hash index on the supplier name to improve performance when a specific supplier name is queried.
+
+### sales_fact:
+- `order_id`
+- B-tree index on all surrogate keys:
+  - `product_sk`
+  - `order_date_sk`
+  - `shipper_sk`
+  - `cust_sk`
+  - `emp_sk`
+- `quantity_per_product`: B-tree index on quantity_per_product.
+- `discount`: B-tree index on discount.
+- `total_price`: B-tree index on total_price.
+- `freight`: B-tree index on freight.
+
+
+   
    ### Partitioning:
 
 In order to enhance query performance and facilitate fast data retrieval for analytics queries, we have implemented partitioning on the Sales Fact table based on the order date. This strategic approach aims to optimize storage efficiency for the fact table, which typically contains a vast amount of data.
