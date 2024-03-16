@@ -208,6 +208,67 @@ While this redesign may result in slightly decreased performance for queries inv
 In the future, we may explore additional enhancements, such as separating `category` and `supplier` into their own dimensions, particularly if the product dimension grows significantly or if there are specific performance issues. This could involve transitioning from a star schema to a snowflake schema, connecting `category` and `supplier` dimensions to the product dimension.
 
   ### Physical Design:
+   ### Indexes:
+   ### Partitioning:
+
+In order to enhance query performance and facilitate fast data retrieval for analytics queries, we have implemented partitioning on the Sales Fact table based on the order date. This strategic approach aims to optimize storage efficiency for the fact table, which typically contains a vast amount of data.
+
+The primary objective of partitioning the Sales Fact table is to expedite query processing and data retrieval, especially for analytical tasks. By organizing the data based on the order date, we can efficiently manage and access relevant data subsets, leading to improved query performance and faster response times.
+
+#### Benefits:
+1. **Enhanced Query Performance:** Partitioning allows queries to target specific date ranges, significantly reducing the volume of data that needs to be scanned. This optimization results in faster query execution times.
+   
+2. **Improved Data Retrieval:** With data organized into partitions based on the order date, retrieving historical or recent data becomes more streamlined. Users can access the relevant partition directly, minimizing unnecessary data retrieval and improving overall system responsiveness.
+
+3. **Storage Efficiency:** Partitioning helps manage the storage footprint of the Sales Fact table more effectively. Instead of storing all data in a single monolithic structure, partitioning allows for better utilization of storage resources by segregating data into manageable chunks.
+
+#### Implementation Details:
+- **Partition Key:** The partitioning key chosen for the Sales Fact table is the order date. This key is crucial for efficiently organizing the data into logical partitions based on chronological order.
+  ![image](https://github.com/Attia0079/Northwind-DWH/assets/62083769/f1dd95a9-dd64-46ec-85f7-ba15d06111c2)
+
+  
+- **Partitioning Strategy:** We employ a range-based partitioning strategy, where each partition corresponds to a specific time interval (yearly partitions). This strategy ensures that data within each partition is coherent and relevant for analysis.
+
+
+   ### Materialized Views:
+   ### Materialized View: monthly_sales_trends
+
+#### Description:
+The `monthly_sales_trends` materialized view aggregates sales data from the Sales Fact table (`redesign_sales_datamart.sales_fact`) to provide insights into monthly sales trends. It extracts the year and month from the `order_date_sk` field and calculates the total sales for each month.
+
+#### Benefits:
+1. **Pre-Aggregated Data:** The materialized view pre-calculates monthly sales totals, eliminating the need for repetitive calculations during query execution. This results in improved query performance for analytical queries focusing on monthly sales trends.
+   
+2. **Simplified Queries:** Users can query the materialized view directly to obtain aggregated sales data at the monthly level, without the need for complex aggregation operations on the raw sales data. This simplifies query formulation and enhances user productivity.
+
+3. **Consistency and Efficiency:** By storing pre-computed results, the materialized view ensures consistency in reporting and analysis. Additionally, it optimizes resource utilization by reducing computational overhead associated with aggregating large datasets on-the-fly.
+
+#### Overall Usage in Data Warehouse (DWH):
+- The `monthly_sales_trends` materialized view serves as a valuable resource for analyzing and monitoring sales performance over time.
+  
+- Analysts and decision-makers can leverage this materialized view to identify seasonal trends, track sales growth, and make informed business decisions based on historical sales data at the monthly granularity.
+  
+- Integration with reporting and visualization tools allows for the creation of intuitive dashboards and reports, providing stakeholders with actionable insights into sales trends and performance metrics.
+
+---
+
+### Materialized View:
+![image](https://github.com/Attia0079/Northwind-DWH/assets/62083769/d3bcfef7-bb74-4f48-b798-6aaa59cc29a4)
+
+### sales_by_customer_region
+The `sales_by_customer_region` materialized view aggregates sales data from the Sales Fact table (`redesign_sales_datamart.sales_fact`) and the Customers Dimension table (`redesign_sales_datamart.customers_dim`) to provide insights into sales by customer region. It calculates the total sales for each customer country.
+
+#### Benefits:
+1. **Customer-Centric Insights:** The materialized view enables analysis of sales performance based on customer geography, allowing businesses to understand regional sales patterns and customer preferences.
+   
+2. **Simplified Analysis:** By pre-computing total sales by customer region, the materialized view simplifies analysis tasks related to regional sales performance. Users can query the materialized view directly, avoiding complex joins and aggregations on raw data.
+   
+3. **Targeted Marketing and Sales Strategies:** Insights derived from the materialized view can inform targeted marketing campaigns and sales strategies tailored to specific customer regions, maximizing revenue opportunities and customer satisfaction.
+
+
+---
+
+** Materialized views play a crucial role in enhancing query performance, simplifying analysis tasks, and empowering data-driven decision-making within the data warehouse environment. By pre-computing and storing aggregated data, materialized views accelerate query processing, enable deeper insights, and support strategic business initiatives across various domains.**
   ### ETL Design and Development:
 ## BI Application Design:
 
