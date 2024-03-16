@@ -428,7 +428,7 @@ The `sales_by_customer_region` materialized view aggregates sales data from the 
 
 ## Title: Customers Dashboard
 
-![dashboard](BI-queries/Dashboards/customers_dashboard.jpg)
+![dashboard](BI-queries/Dashboards/customer_dashboard.png)
 
 ### Business Insights:
 - Key Performance Indicators (KPIs):
