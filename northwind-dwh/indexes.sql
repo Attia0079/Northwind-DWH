@@ -4,10 +4,6 @@ CREATE INDEX idx_emp_name ON redesign_sales_datamart.employees_dim USING hash (e
 
 CREATE INDEX idx_shipper_company_name_hash ON redesign_sales_datamart.shippers_dim USING hash (company_name);
 
-
-CREATE INDEX idx_company_name ON redesign_sales_datamart.shippers_dim (company_name);
-
-
 CREATE INDEX idx_product_name_hash ON redesign_sales_datamart.products_dim USING hash (product_name);
 CREATE INDEX idx_category_name_hash ON redesign_sales_datamart.products_dim USING hash (category_name);
 CREATE INDEX idx_supplier_name_hash ON redesign_sales_datamart.products_dim USING hash (supplier_name);
