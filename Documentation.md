@@ -143,7 +143,23 @@ Upon further evaluation, we identified limitations in the initial design, partic
 #### Redesign Approach
 The redesign involves a shift towards a more dimensional modeling approach. Instead of directly embedding non-additive columns into the fact table, we opt to create separate dimension tables for `category`, `supplier`, and `shipper`. This approach not only reduces the complexity of the fact table but also facilitates better query performance and maintainability.
 ![sales_datamart](https://github.com/Attia0079/Northwind-DWH/assets/62083769/c10ce0f3-2dee-4b7f-85a4-b670aeb64691)
+## Redesign Approach: Enhancing Data Warehouse Architecture
 
+### Separating Shipper into Another Dimension
+
+In our redesign approach, we've decided to separate the `shipper` entity into its own dimension. This decision stems from the presence of non-additive facts in the sales fact table. By isolating `shipper` into a dedicated dimension, we aim to streamline the fact table and improve overall data organization.
+
+### Flattening Product with Supplier and Category Names
+
+Another crucial aspect of our redesign involves flattening the `product` dimension by incorporating `supplier name` and `category name` directly into it. This step eliminates the need for a separate non-additive fact table, as all relevant information is now contained within the product dimension.
+
+### Considerations for Query Performance
+
+While this redesign may result in slightly decreased performance for queries involving `category` and `supplier` names, we believe the overall design enhancement justifies this trade-off. By merging these entities with the product dimension, we achieve a more efficient and streamlined data model.
+
+### Future Enhancement Possibilities
+
+In the future, we may explore additional enhancements, such as separating `category` and `supplier` into their own dimensions, particularly if the product dimension grows significantly or if there are specific performance issues. This could involve transitioning from a star schema to a snowflake schema, connecting `category` and `supplier` dimensions to the product dimension.
 
   ### Physical Design:
   ### ETL Design and Development:
