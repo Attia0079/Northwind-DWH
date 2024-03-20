@@ -92,10 +92,6 @@ This analysis can inform strategic decisions related to inventory management, ma
 10. Continuous Improvement:
 
 Based on the analysis of sales and customer feedback, Northwind Traders can continuously refine its product offerings, operational processes, and customer service to optimize business performance and achieve long-term success.
- 
-  ..
-  1. **Physical Schema:**
-  2. **Tables Description and Structure:**
   
 
 ### Functional Requirements:
@@ -195,6 +191,27 @@ The Gold schema is the final layer in our data warehouse architecture, responsib
 
 
   ### Dashboard Layer:
+   ### Dashboard Layer
+
+The dashboard layer serves as the user interface for business users and analysts to interact with the data warehouse. Its primary function is to provide a visual representation of business performance through charts, graphs, and other visualization tools. Users leverage the dashboard layer to track key performance indicators (KPIs), monitor business performance metrics, and gain insights for informed decision-making.
+
+The main purpose of the dashboard layer is to facilitate communication between users and the data warehouse. It allows business stakeholders to easily access and interpret data, enabling them to make data-driven decisions efficiently.
+
+#### Functionality
+- The dashboard layer presents data in a visually appealing manner using charts, graphs, tables, and other graphical elements.
+- Users can track various business performance metrics and KPIs over time, enabling them to monitor trends and identify areas for improvement.
+- By analyzing the data presented in the dashboards, users can derive valuable insights that aid in strategic decision-making.
+- Dashboards often feature interactive elements that allow users to drill down into specific data points, filter information, and customize their view according to their needs.
+- The dashboard layer provides easy access to relevant data for users across different departments and levels of the organization.
+
+The dashboard layer plays a crucial role in ensuring that business users and analysts can effectively utilize the data stored in the data warehouse. It bridges the gap between raw data and actionable insights, empowering users to make informed decisions that drive business success.
+
+#### Components
+- **Charts and Graphs**: Represent data visually through various chart types such as line charts, bar graphs, pie charts, and scatter plots.
+- **KPI Widgets**: Display key performance indicators prominently for quick reference and monitoring.
+- **Filtering and Drill-Down Options**: Allow users to filter data based on specific criteria and drill down into detailed information for deeper analysis.
+- **Data Integration**: Integrate data from multiple sources to provide a comprehensive view of business performance.
+- **Customization Features**: Enable users to customize their dashboards according to their preferences and requirements.
 
 ## Dimensional Modeling:
 1. Defining Business Process:
